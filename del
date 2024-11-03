@@ -12,7 +12,7 @@ while true; do
         # Check if username exists in both config.json and user.log
         if grep -q "\"$username\"" "$CONFIG_FILE" || grep -q "^$username:" "$LOG_FILE"; then
             # Remove the username from config.json without deleting the whole line
-            sed -i "s/\"$username\", //g; s/, \"$username\"//g; s/\"$username\"//g" "$CONFIG_FILE"
+            sed -i "s/,\"$username\"/\"$username\"/; s/\"$username\",//; s/\"$username\"//" "$CONFIG_FILE"
 
             # Remove the username from user.log
             sed -i "/^$username:/d" "$LOG_FILE"
